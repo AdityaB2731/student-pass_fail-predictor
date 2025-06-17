@@ -2,6 +2,7 @@ import streamlit as st
 import numpy as np
 import joblib
 import tensorflow as tf
+import os
 
 model = tf.keras.models.load_model("model.keras")
 scaler = joblib.load("scaler.pkl")
@@ -9,7 +10,7 @@ scaler = joblib.load("scaler.pkl")
 st.title("🎓 Pass Prediction App")
 st.markdown("Predict the probability of a student passing based on age and score.")
 
-age = st.slider("Select Student Age", min_value=1, max_value=20, value=10)
+age = st.slider("Select Student Age", min_value=10, max_value=25, value=18)
 score = st.slider("Select Test Score", min_value=0, max_value=100, value=75)
 
 if st.button("predict pass probability"):
