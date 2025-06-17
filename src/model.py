@@ -2,6 +2,7 @@ import numpy as np
 from sklearn.model_selection import train_test_split
 from sklearn.preprocessing import StandardScaler
 import tensorflow as tf # type: ignore
+import joblib
 def train_and_predict():
     data = np.array([
         [1, 60, 0],
@@ -27,6 +28,11 @@ def train_and_predict():
     model.compile(optimizer="adam",loss="binary_crossentropy",metrics=['accuracy'])
     model.fit(x_train,y_train,epochs=100,verbose=1)
     loss,accuracy = model.evaluate(x_test,y_test,verbose=1)
+
+    model.save("model.keras")  # instead of model.h5
+
+    joblib.dump(scaler,"scaler.pkl")
+
     print(f"\nModel Accuracy:{accuracy*100:.2f}%")
     example = scaler.transform([[6.5,80]])
     prediction = model.predict(example)
